@@ -11,7 +11,8 @@ pipeline {
                 sh 'python -m py_compile sources/Library.py'
                 stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
-            stage('Test') { 
+        }
+        stage('Test') { 
             agent {
                 docker {
                     image 'qnib/pytest' 
