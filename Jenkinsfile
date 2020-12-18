@@ -4,8 +4,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'python:3-alpine'
-                    privileged = true
+                    image 'python:2-alpine'
                 }
             }
             steps {
