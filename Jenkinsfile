@@ -5,6 +5,7 @@ pipeline {
             agent {
                 docker {
                     image 'python:3-alpine'
+                    privileged = 'true'
                 }
             }
             steps {
