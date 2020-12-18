@@ -5,7 +5,7 @@ Email    - Akshada.Pawar@kpit.com
 Location - Pune
 Batch    - July, 2020
 Date     - 12/12/2020
-File Description -  Program to implement Library Management System. This program can do 
+File Description -  Program to implement Library Management System. This program can do
                     following functions:
                         1) Add a book to the library
                         2) Display all available books
@@ -16,14 +16,20 @@ File Description -  Program to implement Library Management System. This program
 
 import sys
 from datetime import datetime, timedelta
-from collections import defaultdict              # Used to store collection of data and handle exceptions
+from collections import defaultdict  # Used to store collection of data and handle exceptions
 
 """ Without using try-except block we can handled exceptions in Python with the help of
  defaultdict in the collection module."""
- 
+
+
 class StudentException(Exception): pass
+
+
 class NoStudent(StudentException): pass
+
+
 class NoBook(StudentException): pass
+
 
 # This only contains the title name
 
@@ -39,26 +45,27 @@ class Status_Of_Book:
 
     def __eq__(self, other):
         return self.title == other
-    
+
+
 # This keep the record of students who have yet to return books
-     
+
 class Checking:
-     loan_period = 10
-     fine_per_day = 2
+    loan_period = 10
+    fine_per_day = 2
 
-     def __init__(self):
-         self.due_dates = {}
+    def __init__(self):
+        self.due_dates = {}
 
-     def check_in(self, name):
-          due_date = datetime.now() + timedelta(days=self.loan_period)
-          self.due_dates[name] = due_date
+    def check_in(self, name):
+        due_date = datetime.now() + timedelta(days=self.loan_period)
+        self.due_dates[name] = due_date
 
-     def check_out(self, name):
-         current_date = datetime.now()
-         if current_date > self.due_dates[name]:
-             delta = current_date - self.due_dates[name]
-             overdue_fine = self.fine_per_day * delta.days
-             print("Fine Amount: ", overdue_fine)
+    def check_out(self, name):
+        current_date = datetime.now()
+        if current_date > self.due_dates[name]:
+            delta = current_date - self.due_dates[name]
+            overdue_fine = self.fine_per_day * delta.days
+            print("Fine Amount: ", overdue_fine)
 
 
 # Library class contains a set of books
@@ -69,18 +76,21 @@ class Library:
     def __init__(self):
         self.books = []
 
-    def add_book(self, new_book):                       # Adding new book to the library
+    def add_book(self, new_book):  # Adding new book to the library
         self.books.append(new_book)
+        return self.books
 
-    def display_books(self):                            # Display all available books
+    def display_books(self):  # Display all available books
         if self.books:
             print("\nThe books we have made available in our library are:\n")
             for book in self.books:
                 print(book)
+            return(self.books)
         else:
             print("\nSorry, we have no books available in the library at the moment\n")
+            return False
 
-    def lend_book(self, requested_book):                # Request for a book
+    def lend_book(self, requested_book):  # Request for a book
         if requested_book in self.books:
             print(f'''\nYou have now borrowed \"{requested_book}\"''')
             self.books.remove(requested_book)
@@ -89,18 +99,18 @@ class Library:
         else:
             print(f'''\n Sorry, \"{requested_book}\" is not there in our library at the moment''')
             return False
-        
+
 
 # Student class contains container for all students
 
 class Student:
     def __init__(self):
         self.books = defaultdict(list)
-        
+
     """def get_student(self, name):
         if name not in self.books:
             return "Not Found"
-        
+
         return self.books[name]"""
 
     def borrow_book(self, name, book, library):
@@ -118,7 +128,7 @@ class Student:
             self.books[name].remove(book)
             return True
 
-    def students_with_books(self):                          # Display all record in the library
+    def students_with_books(self):  # Display all record in the library
         for name, books in self.books.items():
             if books:
                 yield name, books
@@ -131,25 +141,24 @@ def borrow_book(library, book_tracking):
     if book_tracking.borrow_book(name, book, library):
         library.record.check_in(name)
 
+
 def return_book(library, book_tracking):
     name = input("\nPlease Enter Your Name: ")
     returned_book = Status_Of_Book(input("\nEnter Book Name You Want To Return: "))
 
-
     if book_tracking.return_book(name, returned_book, library):
         library.record.check_out(name)
-
 
 
 library = Library()
 book_tracking = Student()
 
 if __name__ == '__main__':
-    
+
     while True:
 
-# Main Menu
-        
+        # Main Menu
+
         print("#################### WELCOME STUDENT ####################")
         choice = int(input("#################### LIBRARY MANAGEMENT SYSTEM #################### \n\n \
                            1) Add Book \n \
@@ -157,7 +166,7 @@ if __name__ == '__main__':
                            3) Borrow a Book \n \
                            4) Return a Book \n \
                            5) Lending Record \n \n"))
-    
+
         if choice == 1:
             library.add_book(Status_Of_Book(input("\nPlease, Enter Book Name You Want to Add in the Library: ")))
 
@@ -181,12 +190,11 @@ if __name__ == '__main__':
         else:
             print("\nSomething gone wrong! Please check again.")
 
-       
         user_input = int(
             input("\nWant something more?\n \
                    1) To continue.\n \
                    2) To exit.\n"))
-        
+
         if user_input == 1:
             continue
 

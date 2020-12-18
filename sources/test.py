@@ -1,31 +1,33 @@
 import unittest
-import Library
+import library as l
 
-class TestLibrary(unittest.TestCase):
+class Test(unittest.TestCase):
 
-    def test1(self):
-        result = Library.add_book(Python, C, C++, JAVA)
-        self.assertEqual(result,Python, C, C++, JAVA)
+    books = []
+    obj = l.Library()
+    def test_add_book(self):
+        book = self.obj.add_book('Akshada')
+        self.books.append('Akshada')
+        self.assertEqual(book,self.books)
+        print(book)
+        print(self.books)
 
-    def test2(self):
-        result = :ibrary.display_books(Python, C, C++, JAVA)
-        self.assertEqual(result, Python, C, C++, JAVA)
+    def test_display_book(self):
+        b = self.obj.display_books()
+        if self.books:
+            self.assertEqual(b,self.books)
+        else:
+            self.assertEqual(b,False)
 
-    def test3(self):
-        result = Library.lend_book(C++)
-        self.assertEqual(result, C++)
+    def test_lend_book(self):  # Request for a book
+        flag = self.obj.lend_book("Akshada")
+        if 'Akshada' in self.books:
+            self.books.remove('Akshada')
+            self.assertEqual(flag,True)
+        else:
+            print('Book is not in library')
 
-    def test4(self):
-        result = Student.borrow_book(Akshada,C,library)
-        self.assertEqual(result,Akshada,C)
 
-    def test5(self):
-        result = Student.return_book(Akshada, C,library)
-        self.assertEqual(result, Akshada, C)
-
-    def test6(self):
-        result = Student.students_with_books(name,books)
-        self.assertEqual(result,name,books)
 
 if __name__ == '__main__':
     unittest.main()
