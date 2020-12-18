@@ -26,8 +26,6 @@ class Test(unittest.TestCase):
             self.assertEqual(flag,True)
         else:
             print('Book is not in library')
-
-
-
+            
 if __name__ == '__main__':
     unittest.main()
